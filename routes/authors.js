@@ -16,6 +16,7 @@ router.get('/', async (req, res) => {
 			searchOptions: req.query
 		});
 	} catch {
+		if (err) console.error(err);
 		res.redirect('/');
 	}
 });

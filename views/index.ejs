@@ -1,1 +1,6 @@
-Middle > [ renders "index" ] renders " layout.ejs > BODY tag in replaced with view> index.ejs" --
+<h2>Recently Added</h2>
+<div>
+	<% books.forEach(book =>  { %>
+	<img height="150" width="100" src="<%= book.coverImagePath %>"> </img>
+	<% }) %>
+</div>
