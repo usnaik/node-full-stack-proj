@@ -43,11 +43,10 @@ router.post('/', async (req, res) => {
 		description: req.body.description
 	});
 	saveCover(book, req.body.cover);
-
 	try {
 		const newBook = await book.save();
 		res.redirect(`books/${newBook.id}`);
-	} catch {
+	} catch (err) {
 		renderNewBookPage(res, book, true);
 	}
 });
@@ -93,7 +92,7 @@ async function renderNewBookPage(res, book, hasError = false) {
 }
 
 function saveCover(book, coverEncoded) {
-	if (coverEncoded == null) return;
+	if (coverEncoded == null || coverEncoded == '') return;
 	const cover = JSON.parse(coverEncoded);
 	if (cover != null && imageMimeTypes.includes(cover.type)) {
 		book.coverImage = new Buffer.from(cover.data, 'base64');
@@ -122,14 +121,13 @@ router.delete('/:id', async (req, res) => {
 		if (book != null) {
 			res.render('books/show', {
 				book: book,
-				errorMessage: 'Coult not delete book'
+				errorMessage: 'Could not delete book'
 			});
 		} else {
 			res.redirect('/');
 		}
 	}
 });
-
 
 // Update Book Route
 router.put('/:id', async (req, res) => {
@@ -143,7 +141,7 @@ router.put('/:id', async (req, res) => {
 		book.pageCount = req.body.pageCount;
 		book.description = req.body.description;
 		book.title = req.body.title;
-		if (req.body.cover != null && req.body.cover != '') {
+		if (req.body.cover != null && req.body.cover !== '') {
 			saveCover(book, req.body.cover);
 		}
 		await book.save();
