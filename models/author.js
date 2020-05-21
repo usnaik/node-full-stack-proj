@@ -14,7 +14,7 @@ authorSchema.pre('remove', function (next) {
 		if (err) {
 			next(err);
 		} else if (books.length > 0) {
-			next(new Error("Cannot delete, few books registered under this Author."));
+			next(new Error("Cannot delete Author, as books registered under this Author."));
 		} else {
 			next();
 		}

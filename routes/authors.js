@@ -57,6 +57,8 @@ router.get('/:id', async (req, res) => {
 
 });
 
+
+// Edit an existing Author
 router.get('/:id/edit', async (req, res) => {
 	try {
 		const author = await Author.findById(req.params.id);
@@ -66,6 +68,7 @@ router.get('/:id/edit', async (req, res) => {
 	}
 });
 
+// Update an existing Author
 router.put('/:id', async (req, res) => {
 	let author;
 	try {
@@ -85,6 +88,8 @@ router.put('/:id', async (req, res) => {
 	}
 });
 
+
+// Delete an Author
 router.delete('/:id', async (req, res) => {
 	let author;
 	try {
